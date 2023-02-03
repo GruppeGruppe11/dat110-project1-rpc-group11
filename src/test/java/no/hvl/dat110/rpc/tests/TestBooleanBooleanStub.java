@@ -4,15 +4,13 @@ import no.hvl.dat110.rpc.RPCClient;
 import no.hvl.dat110.rpc.RPCLocalStub;
 import no.hvl.dat110.rpc.RPCUtils;
 
-import java.io.IOException;
-
 public class TestBooleanBooleanStub extends RPCLocalStub {
 	
 	public TestBooleanBooleanStub(RPCClient rpcclient) {
 		super(rpcclient);
 	}
 	
-	public boolean m(boolean b) throws IOException {
+	public boolean m(boolean b) {
 		
 		byte[] request = RPCUtils.marshallBoolean(b);
 		

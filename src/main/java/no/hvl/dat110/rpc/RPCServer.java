@@ -1,6 +1,5 @@
 package no.hvl.dat110.rpc;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 import no.hvl.dat110.TODO;
@@ -41,7 +40,7 @@ public class RPCServer {
 	    
 		   byte rpcid = 0;
 		   Message requestmsg, replymsg;
-
+		   
 		   // TODO - START
 			try{
 
