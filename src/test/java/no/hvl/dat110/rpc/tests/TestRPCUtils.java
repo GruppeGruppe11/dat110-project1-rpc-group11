@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import no.hvl.dat110.rpc.RPCUtils;
 
-class TestRPCUtils {
+class     TestRPCUtils {
 
 	@Test
 	void testDecapsulate() {
