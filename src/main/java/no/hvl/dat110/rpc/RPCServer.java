@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpc;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import no.hvl.dat110.TODO;
@@ -37,42 +38,36 @@ public class RPCServer {
 		boolean stop = false;
 		
 		while (!stop) {
-	    
-		   byte rpcid = 0;
-		   Message requestmsg, replymsg;
-		   
-		   // TODO - START
-			try{
 
-				// - receive a Message containing an RPC request
-				requestmsg = connection.receive();
+			byte rpcid = 0;
+			Message requestmsg, replymsg;
 
-				// - extract the identifier for the RPC method to be invoked from the RPC request
-				var rpcMessage = requestmsg.getData();
-				rpcid = rpcMessage[0];
+			// TODO - START
+			// - receive a Message containing an RPC request
+			requestmsg = connection.receive();
 
-				// - lookup the method to be invoked
-				var method = services.get(rpcid);
+			// - extract the identifier for the RPC method to be invoked from the RPC request
+			var rpcMessage = requestmsg.getData();
+			rpcid = rpcMessage[0];
 
-				// - invoke the method
-				var param = RPCUtils.decapsulate(rpcMessage);
-				var returnValue = method.invoke(param);
+			// - lookup the method to be invoked
+			var method = services.get(rpcid);
 
-				// - send back the message containing RPC reply
-				var rpcReturnMsg = RPCUtils.encapsulate(rpcid, returnValue);
-				replymsg = new Message(rpcReturnMsg);
-				connection.send(replymsg);
-			}catch (IOException e){
-				stop = true;
-				e.printStackTrace();
-			}
+			// - invoke the method
+			var param = RPCUtils.decapsulate(rpcMessage);
+			var returnValue = method.invoke(param);
 
-		   // TODO - END
+			// - send back the message containing RPC reply
+			var rpcReturnMsg = RPCUtils.encapsulate(rpcid, returnValue);
+			replymsg = new Message(rpcReturnMsg);
+			connection.send(replymsg);
+
+			// TODO - END
 
 			// stop the server if it was stop methods that was called
-		   if (rpcid == RPCCommon.RPIDSTOP) {
-			   stop = true;
-		   }
+			if (rpcid == RPCCommon.RPIDSTOP) {
+				stop = true;
+			}
 		}
 	
 	}

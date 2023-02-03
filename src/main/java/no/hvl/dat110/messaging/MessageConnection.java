@@ -32,7 +32,7 @@ public class MessageConnection {
 		}
 	}
 
-	public void send(Message message) throws IOException {
+	public void send(Message message) {
 
 		byte[] data;
 		
@@ -40,13 +40,17 @@ public class MessageConnection {
 		// encapsulate the data contained in the Message and write to the output stream
 
 		byte[] segment = MessageUtils.encapsulate(message);
-		outStream.write(segment);
-			
+		try{
+			outStream.write(segment);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// TODO - END
 
 	}
 
-	public Message receive() throws IOException {
+	public Message receive() {
 
 		Message message = null;
 		byte[] data;
@@ -56,7 +60,11 @@ public class MessageConnection {
 
 		byte[] segment = new byte[128];
 		for(int i = 0; i < 128; i++){
-			segment[i] = inStream.readByte();
+			try{
+				segment[i] = inStream.readByte();
+			}catch (IOException e){
+				e.printStackTrace();
+			}
 		}
 		message = MessageUtils.decapsulate(segment);
 		
