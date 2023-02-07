@@ -37,9 +37,16 @@ public class Controller  {
 
 		// read value from sensor using RPC and write to display using RPC
 
-		int temp = sensor.read();
-		display.write("The sensor is recording '" + temp + "'.");
-		
+		for(int i = 0; i<5;i++){
+			int temp = sensor.read();
+			display.write("The sensor is recording '" + temp + "'.");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
 		// TODO - END
 		
 		stopdisplay.stop();
