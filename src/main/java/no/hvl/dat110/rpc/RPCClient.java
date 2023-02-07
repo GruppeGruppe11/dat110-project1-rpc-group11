@@ -3,6 +3,8 @@ package no.hvl.dat110.rpc;
 import no.hvl.dat110.TODO;
 import no.hvl.dat110.messaging.*;
 
+import java.io.IOException;
+
 public class RPCClient {
 
 	// underlying messaging client used for RPC communication
@@ -20,10 +22,13 @@ public class RPCClient {
 		
 		// TODO - START
 		// connect using the RPC client
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+
+		try {
+			connection = msgclient.connect();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 		// TODO - END
 	}
 	
@@ -31,9 +36,8 @@ public class RPCClient {
 		
 		// TODO - START
 		// disconnect by closing the underlying messaging connection
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+
+		connection.close();
 		
 		// TODO - END
 	}
