@@ -58,7 +58,6 @@ public class RPCClient {
 		The return value from the RPC call must be decapsulated according to the RPC message format
 		*/
 
-
 		byte[] data = RPCUtils.encapsulate(rpcid, param);
 
 		connection.send(new Message(data));
