@@ -13,12 +13,11 @@ public class RPCUtils {
 		// TODO - START
 		
 		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
+
 		rpcmsg = new byte[payload.length+1];
 		rpcmsg[0] = rpcid;
 
-		for (int i = 1; i <= payload.length; i++) {
-			rpcmsg[i]=payload[i-1];
-		}
+		System.arraycopy(payload, 0, rpcmsg, 1, payload.length);
 
 		// TODO - END
 		
@@ -78,7 +77,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		//??
+		encoded = new byte[1];
 
 		// TODO - END
 		

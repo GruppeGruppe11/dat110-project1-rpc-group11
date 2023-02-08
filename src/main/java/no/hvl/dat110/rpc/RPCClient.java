@@ -1,6 +1,5 @@
 package no.hvl.dat110.rpc;
 
-import no.hvl.dat110.TODO;
 import no.hvl.dat110.messaging.*;
 
 public class RPCClient {
@@ -59,16 +58,12 @@ public class RPCClient {
 		The return value from the RPC call must be decapsulated according to the RPC message format
 		*/
 
-		byte[] data = new byte[param.length+1];
-		data[0] = rpcid;
 
-		for (int i = 1; i < param.length; i++) {
-			data[1] = param[i-1];
-		}
+		byte[] data = RPCUtils.encapsulate(rpcid, param);
 
 		connection.send(new Message(data));
 
-		returnval = connection.receive().getData();
+		returnval = RPCUtils.decapsulate(connection.receive().getData());
 
 		// TODO - END
 		return returnval;

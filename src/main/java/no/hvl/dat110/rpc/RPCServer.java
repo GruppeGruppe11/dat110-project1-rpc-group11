@@ -40,23 +40,37 @@ public class RPCServer {
 	    
 		   byte rpcid = 0;
 		   Message requestmsg, replymsg;
-		   
+
+
 		   // TODO - START
 		   // - receive a Message containing an RPC request
 		   // - extract the identifier for the RPC method to be invoked from the RPC request
 		   // - lookup the method to be invoked
 		   // - invoke the method
 		   // - send back the message containing RPC reply
-			
-		   if (true)
-				throw new UnsupportedOperationException(TODO.method());
-		   
-		   // TODO - END
+
+			requestmsg = connection.receive();
+
+			rpcid = requestmsg.getData()[0];
 
 			// stop the server if it was stop methods that was called
-		   if (rpcid == RPCCommon.RPIDSTOP) {
-			   stop = true;
-		   }
+			if (rpcid == RPCCommon.RPIDSTOP) {
+				stop = true;
+			}
+
+			RPCRemoteImpl impl = services.get(rpcid);
+
+			byte[] data = RPCUtils.decapsulate(requestmsg.getData());
+
+			byte[] methodReturned = impl.invoke(data);
+
+			byte[] returnMessage = RPCUtils.encapsulate(rpcid,methodReturned);
+
+			connection.send(new Message(returnMessage));
+
+		   // TODO - END
+
+
 		}
 	
 	}
