@@ -77,7 +77,7 @@ public class RPCUtils {
 		
 		// TODO - START 
 		
-		encoded = new byte[1];
+		encoded = new byte[0];
 
 		// TODO - END
 		
@@ -88,10 +88,8 @@ public class RPCUtils {
 	public static void unmarshallVoid(byte[] data) {
 		
 		// TODO
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+
+		// uh
 	}
 
 	// convert boolean to a byte array representation
